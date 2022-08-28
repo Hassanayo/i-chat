@@ -1,0 +1,31 @@
+.topBarBody{
+    display: flex;
+    align-items: center;
+    max-width: 916px;
+    background-color: #FFF;
+    justify-content: space-between;
+    padding: 15px;
+
+
+}
+.left{
+    display: flex;
+    align-items: center;
+}
+.iconBox{
+    display: flex;
+    justify-content: space-between;
+}
+.iconBox > *{
+    padding: 8px;
+    font-size: 24px;
+    color: var(--navyGrey);
+    width: 40px;
+    
+}
+.avatarBox{
+    padding-right: 16px;
+    color: var(--navyGrey)
+}
+.details{
+}
