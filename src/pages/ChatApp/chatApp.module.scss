@@ -1,0 +1,19 @@
+.chatBody{
+ display: flex;
+ width: 100%;
+
+}
+.rightBar{
+    width: 100%;
+    background-color: var(--icebergBlue);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 10003px;
+    height: 100vh;
+    
+    
+}
+.rightBottom{
+    padding: 15px;
+}

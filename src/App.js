@@ -4,15 +4,16 @@ import ChatApp from "./pages/ChatApp/ChatApp";
 import Login from "./pages/Login/Login";
 import MainApp from "./pages/MainApp/MainApp";
 import Signup from "./pages/Signup/Signup";
-import "./styles/variables.scss"
+import "./styles/variables.scss";
 
 function App() {
   return (
     <main className="App">
       <BrowserRouter>
         <Routes>
-          <Route element={<PrivateRoute />}></Route>
-          <Route path="/messenger" element={<ChatApp />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/messenger" element={<ChatApp />} />
+          </Route>
           <Route path="/" element={<MainApp />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />

@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, methods } from "../firebase/firebase";
 import styles from "../styles/variables.scss"
@@ -5,8 +6,8 @@ import styles from "../styles/variables.scss"
 const AuthContext = React.createContext();
 
 export default function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState("");
-  const [loading, setLoading] = useState();
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
   function signup(email, password) {
     return methods.createUserWithEmailAndPassword(auth, email, password);
   }
@@ -17,7 +18,7 @@ export default function AuthProvider({ children }) {
     return methods.signOut(auth)
 }
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
     });

@@ -1,115 +1,61 @@
 /* eslint-disable default-case */
-import React, { useEffect, useRef, useReducer, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useRef, useState } from "react";
 import { SignupContainer } from "./signup.style";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 
-const MAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{2,24}$/;
-// reducer
-const ACTION = {
-  USER: "user",
-  VALID_NAME: "validName",
-  USER_FOCUS: "userFocus",
-  PWD: "pwd",
-  VALID_PWD: "validPwd",
-  PWD_FOCUS: "pwdFocus",
-  MATCH_PWD: "matchPwd",
-  VALID_MATCH: "validMatch",
-  MATCH_FOCUS: "matchFocus",
-  ERR_MSG: "errMsg",
-  SUCCESS: "success",
-};
-const initialState = {
-  user: "",
-  validName: false,
-  userFocus: false,
-  pwd: "",
-  validPwd: false,
-  pwdFocus: false,
-  matchPwd: "",
-  validMatch: false,
-  matchFocus: false,
-  errMsg: "",
-  success: false,
-};
+// const MAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{2,24}$/;
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "user":
-      return { ...state, user: action.payload };
-    case "validName":
-      return { ...state, validName: action.payload };
-    case "userFocus":
-      return { ...state, userFocus: action.payload };
-    case "pwd":
-      return { ...state, pwd: action.payload };
-    case "validPwd":
-      return { ...state, validPwd: action.payload };
-    case "pwdFocus":
-      return { ...state, pwdFocus: action.payload };
-    case "matchPwd":
-      return { ...state, matchPwd: action.payload };
-    case "validMatch":
-      return { ...state, validMatch: action.payload };
-    case "matchFocus":
-      return { ...state, matchFocus: action.payload };
-    case "errMsg":
-      return { ...state, errMsg: action.payload };
-    case "success":
-      return { ...state, success: action.payload };
-    default:
-      throw new Error("an error occured");
-  }
-};
 export default function Signup() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [err, setErr] = useState("")
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirm_pwd: "",
+    error: null,
+    loading: false,
+  });
+  const { name, email, password, confirm_pwd, error, loading } = data;
   const userRef = useRef();
-  const errRef = useRef();
+  const { signup, currentUser } = useAuth();
+  const navigate = useNavigate()
 
-  const {signup, currentUser} = useAuth()
   // focus on the first input tab
   useEffect(() => {
     userRef.current.focus();
   }, []);
-  // check if username is valid with the regexp
-  useEffect(() => {
-    const result = MAIL_REGEX.test(state.user);
-    dispatch({ type: ACTION.VALID_NAME, payload: result });
-  }, [state.user]);
-  //check if password is valid with regexp and compare with comfirmPassword
-  useEffect(() => {
-    const result = PWD_REGEX.test(state.pwd);
-    dispatch({ type: ACTION.VALID_PWD, payload: result });
-    const match = state.pwd === state.matchPwd;
-    dispatch({ type: ACTION.VALID_MATCH, payload: match });
-  }, [state.pwd, state.matchPwd]);
 
-  // clear error when all input fields are correctly filled
-  useEffect(() => {
-    dispatch({ type: ACTION.ERR_MSG, payload: "" });
-  }, [state.user, state.pwd, state.matchPwd]);
-
+  // function that handles the change
+  function handleChange(e) {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
   // function that run when we submit the form
+  // signup the user and create a document in firestore that contains user information
   async function handleSubmit(e) {
     e.preventDefault();
-    const v1 = MAIL_REGEX.test(state.user);
-    const v2 = PWD_REGEX.test(state.pwd);
-    if (!v1 || !v2) {
-      dispatch({ type: ACTION.ERR_MSG, payload: "Invalid Entry" });
-      return;
+    console.log(data);
+    if (!name || !email || !password || !password) {
+      setData({ ...data, error: "All fields are required" });
     }
-    dispatch({ type: ACTION.SUCCESS, payload: true });
+    setData({ ...data, error: null, loading: true });
 
-    // send signup to firebase
-    console.log("submitted");
     try {
-      await signup(state.user, state.pwd)
-    } catch (error) {
-      console.log("error", e);
+      const result = await signup(email, password);
+      await setDoc(doc(db, "users", result.user.uid), {
+        uid: result.user.uid,
+        name,
+        email,
+        createdAt: Timestamp.fromDate(new Date()),
+        isOnline: true,
+      });
+      setData({ ...data, loading: false });
+      navigate("/login")
+    } catch (err) {
+      setData({ ...data, error: err.message, loading: false });
+      console.log("error", err);
     }
   }
 
@@ -122,165 +68,71 @@ export default function Signup() {
         </section>
       ) : ( */}
       <div>{currentUser && currentUser.email}</div>
-        <section className="form-container">
-        <p ref={errRef} aria-live="assertive" className={state.errMsg}>
-          {state.errMsg ? "errmsg" : ""}
-        </p>
+      <section className="form-container">
         <h1 className="header">Sign up</h1>
         <form className="form" onSubmit={handleSubmit}>
           <div className="input-field">
+            <label className="label-name" htmlFor="name">
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              ref={userRef}
+              autoComplete="off"
+              value={name}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="input-field">
             <label className="label-name" htmlFor="email">
               Email:
-              <span className={state.validName ? "valid" : "hide"}>
-                <FontAwesomeIcon icon={faCheck} />
-              </span>
-              <span
-                className={state.validName || !state.user ? "hide" : "invalid"}
-              >
-                <FontAwesomeIcon icon={faTimes} />
-              </span>
             </label>
             <input
               type="email"
               id="email"
-              ref={userRef}
+              name="email"
               autoComplete="off"
-              onChange={(e) =>
-                dispatch({ type: ACTION.USER, payload: e.target.value })
-              }
-              required
-              aria-invalid={state.validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() =>
-                dispatch({ type: ACTION.USER_FOCUS, payload: true })
-              }
-              onBlur={() =>
-                dispatch({ type: ACTION.USER_FOCUS, payload: false })
-              }
+              value={email}
+              onChange={handleChange}
             />
-            <p
-              id="uidnote"
-              className={
-                state.userFocus && state.user && !state.validName
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Invalid email
-              <br />
-              Must include @
-              <br />
-            </p>
           </div>
 
           <div className="input-field">
             <label className="label-name" htmlFor="password">
               Password:
-              <span className={state.validPwd ? "valid" : "hide"}>
-                <FontAwesomeIcon icon={faCheck} />
-              </span>
-              <span
-                className={state.validPwd || !state.pwd ? "hide" : "invalid"}
-              >
-                <FontAwesomeIcon icon={faTimes} />
-              </span>
             </label>
             <input
               type="password"
               id="password"
-              onChange={(e) =>
-                dispatch({ type: ACTION.PWD, payload: e.target.value })
-              }
-              required
-              aria-invalid={state.validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() =>
-                dispatch({ type: ACTION.PWD_FOCUS, payload: true })
-              }
-              onBlur={() =>
-                dispatch({ type: ACTION.PWD_FOCUS, payload: false })
-              }
+              name="password"
+              value={password}
+              onChange={handleChange}
             />
-            <p
-              id="pwdnote"
-              className={
-                state.pwdFocus && !state.validPwd ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              Must include upper and lowercase letters, a number and a special
-              character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percentage">%</span>
-            </p>
           </div>
 
           <div className="input-field">
             <label className="label-name" htmlFor="confirm_pwd">
               Confirm Password:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={
-                  state.validMatch && state.matchPwd ? "valid" : "hide"
-                }
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={
-                  state.validMatch || !state.matchPwd ? "hide" : "invalid"
-                }
-              />
             </label>
             <input
               type="password"
               id="confirm_pwd"
-              onChange={(e) =>
-                dispatch({ type: ACTION.MATCH_PWD, payload: e.target.value })
-              }
-              value={state.matchPwd}
-              required
-              aria-invalid={state.validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() =>
-                dispatch({ type: ACTION.MATCH_FOCUS, payload: true })
-              }
-              onBlur={() =>
-                dispatch({ type: ACTION.MATCH_FOCUS, payload: false })
-              }
+              name="confirm_pwd"
+              value={confirm_pwd}
+              onChange={handleChange}
             />
-            <p
-              id="confirmnote"
-              className={
-                state.matchFocus && !state.validMatch
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must match the first password input field.
-            </p>
           </div>
-
-          <button
-          className="form-btn"
-            disabled={
-              !state.validName || !state.validMatch || !state.validPwd
-                ? true
-                : false
-            }
-          >
+          {error ? <p>{error}</p> : null}
+          <button disabled={loading} className="form-btn">
             Sign Up
           </button>
         </form>
-        <p >Dont have an account? <Link  to="/login">Login</Link></p>
+        <p>
+          Dont have an account? <Link to="/login">Login</Link>
+        </p>
       </section>
       {/* )} */}
     </SignupContainer>
