@@ -4,28 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import Colors from "../../styles/Colors/colors";
-import { useMessages } from "../../context/MessageContext";
-export default function InputBar() {
-  const {message, setMessage} = useMessages()
-  function sendMessage(e){
-    e.preventDefault()
-  }
+export default function InputBar({sendMessage, text, setText}) {
   return (
     <div className={styles.inputBarBody}>
       <div className={styles.iconBox}>
         <FontAwesomeIcon color={Colors.navyGrey} icon={faFaceSmile} />
       </div>
-      <form className={styles.inputForm} action="" onSubmit={sendMessage}>
+      <form className={styles.inputForm} onSubmit={sendMessage}>
         <input
           className={styles.inputField}
           type="text"
           placeholder="Message"
-          onChange={(e) => setMessage(e.target.value)}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
-      </form>
-      <div className={styles.iconBox}>
+      <button className={styles.iconBox}>
         <FontAwesomeIcon color={Colors.icebergBlue} icon={faPaperPlane} />
-      </div>
+      </button>
+      </form>
     </div>
   );
 }

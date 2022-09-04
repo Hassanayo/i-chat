@@ -1,37 +1,16 @@
-import React, { useEffect } from "react";
-import { Regular12, Regular16 } from "../../styles/Typography/typography";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import {Regular16 } from "../../styles/Typography/typography";
 import styles from "./chatScreen.module.scss";
-import { useMessages } from "../../context/MessageContext";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import ChatMessage from "../ChatMessage/ChatMessage";
-export default function ChatScreen({chat}) {
-  const { message, setMessage } = useMessages();
-  const newText = message;
-  const docRef = doc(collection(db, "message"))
-  //get messages
-  
-    // const special = doc(collection(db, "message"))
-   
-
+export default function ChatScreen({messages, setMessages, senderId, receiverId}) {
   return (
     <div className={styles.chatBody}>
       <div className={styles.date}>
         <Regular16 color="#FFF">Today</Regular16>
       </div>
-      <div className={styles.chatMessages}>
-        <ChatMessage message="hello"/>
+      <div className={styles.messages}>
+        {messages.length ? messages.map((message, index) => (
+        <ChatMessage senderId={senderId} key={index} message={message}/>
+        )): null}
         
       </div>
     </div>

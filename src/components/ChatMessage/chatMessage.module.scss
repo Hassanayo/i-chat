@@ -1,23 +1,38 @@
+
+.chatMessages{
+    max-width: 100%;
+}
+.sender{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+.receiver{
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 0;
+}
+.sent{
+    display: inline;
+    background-color: var(--lightGreen);
+    border-radius: 12px;
+    padding: 4px 12px;
+    max-width: 400px;
+    margin-top: 10px;
+    padding: 5px;
+}
 .received{
+    display: inline;
     background-color: #FFF;
     border-radius: 12px;
     padding: 4px 12px;
     max-width: 400px;
+    padding: 5px;
 }
 .time{
     display: flex;
     justify-content: flex-end;
     padding-top: 10px;
     gap: 5px;
-}
-.chatMessages{
-    max-width: 100%;
-}
-.sent{
-    background-color: var(--lightGreen);
-    border-radius: 12px;
-    padding: 4px 12px;
-    max-width: 400px;
-    float: right;
-    margin-top: 10px;
+    
 }

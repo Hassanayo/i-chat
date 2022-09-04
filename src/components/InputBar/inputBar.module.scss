@@ -1,12 +1,17 @@
-.inputForm{
-    width: 100%;
-}
+
 .inputBarBody{
-    max-width: 100%;
     padding: 16px 0;
     background-color: #FFF;
     display: flex;
     border-radius: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.inputForm{
+    width: 100%;
+    display: flex;
+    
 }
 .inputField{
     width: 100%;
@@ -18,4 +23,10 @@
 .iconBox{
     padding: 0 10px;
     cursor: pointer;
+    border: 0;
+    background-color: transparent;
+}
+.iconBox:focus{
+    border: 0;
+    background-color: transparent;
 }
