@@ -8,13 +8,12 @@ import {
   Semibold16,
 } from "../../styles/Typography/typography";
 import styles from "./user.module.scss";
-export default function User({ user}) {
-  const { selectUser} = useMessages()
+export default function User({user, selectUser}) {
   return (
     <div onClick={() => selectUser(user)} className={styles.userContainer}>
       <div className={styles.left}>
         <div className={styles.profilePic}>
-          <img src={Avatar} alt="" />
+          <img src={user.avatar} alt="" />
         </div>
         <div className={styles.details}>
           <FlexBox alignItems="center" gap="10px" >

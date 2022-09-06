@@ -18,12 +18,15 @@ export default function AuthProvider({ children }) {
     return methods.signOut(auth)
 }
   useEffect(() => {
+    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      
       setCurrentUser(user);
       setLoading(false);
     });
     return unsubscribe;
   }, []);
+  
   const value = {
     currentUser,
     signup,
