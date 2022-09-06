@@ -1,10 +1,11 @@
-import {useState} from "react";
 import styles from "./inputBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import Colors from "../../styles/Colors/colors";
-export default function InputBar({sendMessage, text, setText}) {
+import { useMessages } from "../../context/MessageContext";
+export default function InputBar() {
+  const {sendMessage, text, setText} = useMessages()
   return (
     <div className={styles.inputBarBody}>
       <div className={styles.iconBox}>

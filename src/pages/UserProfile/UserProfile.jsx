@@ -53,7 +53,7 @@ export default function UserProfile() {
     }
   }, [img, currentUser.uid, user.avatarPath]);
 
-  // delet profile picture
+  // delete profile picture
   async function deleteImage() {
     try {
       const confirm = window.confirm("Delete profile picture?");

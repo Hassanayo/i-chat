@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from "../../assets/Avatar.png";
+import { useMessages } from "../../context/MessageContext";
 import {
   FlexBox,
   Regular12,
@@ -7,7 +8,8 @@ import {
   Semibold16,
 } from "../../styles/Typography/typography";
 import styles from "./user.module.scss";
-export default function User({selectUser, user}) {
+export default function User({ user}) {
+  const { selectUser} = useMessages()
   return (
     <div onClick={() => selectUser(user)} className={styles.userContainer}>
       <div className={styles.left}>
