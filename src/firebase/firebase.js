@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
 import {getFirestore} from "firebase/firestore"
+import {getStorage} from "firebase/storage"
 const firebaseConfig = {
   apiKey: "AIzaSyC8pKiLbI5Ykh5RNB7Tqk02L-uDLs2jO1s",
   authDomain: "auth-development-6d839.firebaseapp.com",
@@ -16,6 +17,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 export const db = getFirestore(app)
+export const storage = getStorage(app)
 export const methods = {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,

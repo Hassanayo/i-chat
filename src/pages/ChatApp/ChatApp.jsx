@@ -112,7 +112,6 @@ export default function ChatApp() {
                   text={text}
                   setText={setText}
                 />
-                <span ></span>
             </>
           ) : (
             <p>Select a user to start a conversation</p>
