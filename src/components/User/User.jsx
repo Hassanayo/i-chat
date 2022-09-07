@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from "../../assets/Avatar.png";
 import { useMessages } from "../../context/MessageContext";
+import Img from "../../assets/blankimage.png"
 import {
   FlexBox,
   Regular12,
@@ -13,7 +14,7 @@ export default function User({user, selectUser}) {
     <div onClick={() => selectUser(user)} className={styles.userContainer}>
       <div className={styles.left}>
         <div className={styles.profilePic}>
-          <img src={user.avatar} alt="" />
+          <img src={user.avatar || Img} alt="" />
         </div>
         <div className={styles.details}>
           <FlexBox alignItems="center" gap="10px" >

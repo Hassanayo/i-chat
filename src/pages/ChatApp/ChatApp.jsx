@@ -6,7 +6,7 @@ import User from "../../components/User/User";
 import styles from "./chatApp.module.scss";
 import { LayoutWrapper } from "../../components/Layout/Layout";
 import { useMessages } from "../../context/MessageContext";
-import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, Timestamp, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../../firebase/firebase";
 import { useAuth } from "../../context/AuthContext";
@@ -61,6 +61,24 @@ export default function ChatApp() {
       setMessages(msgs);
     });
   }
+  // send message to receiver
+  async function sendMessage(e) {
+    console.log("sent");
+    e.preventDefault();
+    const receiverId = chat.uid;
+    const id =
+      senderId > receiverId
+        ? `${senderId + receiverId}`
+        : `${receiverId + senderId}`;
+    const chatRef = collection(db, "messages", id, "chat");
+    await addDoc(chatRef, {
+      text,
+      from: senderId,
+      to: receiverId,
+      createdAt: Timestamp.fromDate(new Date()),
+    });
+    setText("");
+  }
 
   
 
@@ -76,11 +94,11 @@ export default function ChatApp() {
         <div className={styles.rightBar}>
           {chat ? (
             <>
-              <TopBar chat={chat} />
+              <TopBar chat={chat} user={users} />
               <div className={styles.chatArea}>
                 <ChatScreen messages={messages} senderId={senderId}/>
               </div>{" "}
-              <InputBar/>
+              <InputBar sendMessage={sendMessage} text={text} setText={setText} />
             </>
           ) : (
             <p>Select a user to start a conversation</p>

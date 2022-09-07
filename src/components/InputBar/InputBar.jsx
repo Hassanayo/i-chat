@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import Colors from "../../styles/Colors/colors";
-import { useMessages } from "../../context/MessageContext";
-export default function InputBar() {
-  const {sendMessage, text, setText} = useMessages()
+export default function InputBar({sendMessage, text, setText}) {
   return (
     <div className={styles.inputBarBody}>
       <div className={styles.iconBox}>
