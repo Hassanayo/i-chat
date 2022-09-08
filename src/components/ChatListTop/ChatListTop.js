@@ -34,9 +34,7 @@ export default function ChatListTop({ openModal, logout }) {
       <div className={styles.iconBox} onClick={handleModal}>
         <FontAwesomeIcon icon={faBars} />
       </div>
-      <div className={styles.modalBody} >
         <ListModal setIsOpen={setIsOpen} isOpen={isOpen} logout={logout} />
-      </div>
       <div className={styles.inputField}>
         <div>
           <FontAwesomeIcon icon={faSearch} />
