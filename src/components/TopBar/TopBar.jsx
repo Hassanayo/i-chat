@@ -1,25 +1,27 @@
-import React from "react";
 import styles from "./topBar.module.scss";
-import Avatar from "../../assets/Avatar.png";
+import Avatar from "../../assets/blankimage.png";
 import { Regular14, Semibold16 } from "../../styles/Typography/typography";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSearch,
-  faPhone,
-  faEllipsisV,
-} from "@fortawesome/free-solid-svg-icons";
-export default function TopBar({chat, user}) {
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+export default function TopBar({ chat }) {
   return (
     <div className={styles.topBarBody}>
       <div className={styles.left}>
+        <div className={styles.imageBox}>
+          <img src={chat.avatar || Avatar} alt="" />
+        </div>
         <div className={styles.details}>
           <Semibold16>{chat.name}</Semibold16>
-          <Regular14>last seen 5 mins ago</Regular14>
+          <div>
+            {chat.isOnline ? (
+              <Regular14>online</Regular14>
+            ) : (
+              <Regular14>offline</Regular14>
+            )}
+          </div>
         </div>
       </div>
       <div className={styles.iconBox}>
-        {/* <FontAwesomeIcon icon={faSearch} />
-        <FontAwesomeIcon icon={faPhone} /> */}
         <FontAwesomeIcon icon={faEllipsisV} />
       </div>
     </div>

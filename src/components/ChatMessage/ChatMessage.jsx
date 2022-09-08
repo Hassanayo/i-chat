@@ -15,7 +15,6 @@ export default function ChatMessage({message, senderId}) {
     const dateStr = message.createdAt.toDate().toISOString()
     const date = new Date(dateStr)
     const result = date.getHours()+":"+(date.getMinutes()<10?'0':'') + date.getMinutes()
-    console.log(result);
     setTime(result)
   }, [message])
   return (

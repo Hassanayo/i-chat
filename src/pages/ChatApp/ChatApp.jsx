@@ -5,12 +5,10 @@ import TopBar from "../../components/TopBar/TopBar";
 import User from "../../components/User/User";
 import styles from "./chatApp.module.scss";
 import { LayoutWrapper } from "../../components/Layout/Layout";
-import { useMessages } from "../../context/MessageContext";
 import {
   addDoc,
   collection,
   doc,
-  getDoc,
   onSnapshot,
   orderBy,
   query,
@@ -21,14 +19,12 @@ import {
 import { useEffect, useState } from "react";
 import { auth, db } from "../../firebase/firebase";
 import { useAuth } from "../../context/AuthContext";
-import ListModal from "../../components/ListModal/ListModal";
 import { useNavigate } from "react-router-dom";
 export default function ChatApp() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-  const [userData, setUserData] = useState("");
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -37,11 +33,11 @@ export default function ChatApp() {
   //get all users
   useEffect(() => {
     const usersRef = collection(db, "users");
-    getDoc(doc(db, "users", currentUser.uid)).then((docSnap) => {
-      if (docSnap.exists()) {
-        setUserData(docSnap.data());
-      }
-    });
+    // getDoc(doc(db, "users", currentUser.uid)).then((docSnap) => {
+    //   if (docSnap.exists()) {
+    //     setUserData(docSnap.data());
+    //   }
+    // });
     // get query of all users except the current logged in user
     const getAllUsers = query(usersRef, where("uid", "not-in", [senderId]));
     const unsubscribe = onSnapshot(getAllUsers, (snapshot) => {
@@ -124,7 +120,7 @@ export default function ChatApp() {
         <div className={styles.rightBar}>
           {chat ? (
             <>
-              <TopBar chat={chat} user={users} />
+              <TopBar chat={chat} />
               <div className={styles.chatArea}>
                 <ChatScreen messages={messages} senderId={senderId} />
               </div>{" "}
