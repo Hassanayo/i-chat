@@ -1,19 +1,29 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Regular12, Regular16 } from "../../styles/Typography/typography";
 import styles from "./chatMessage.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 export default function ChatMessage({message, senderId}) {
+  const [time, setTime] = useState("")
   const dummy = useRef()
   useEffect(() => {
+    // always scroll down to last message
     dummy.current?.scrollIntoView({behavior: "smooth"})
+
+
+    // get time message was sent
+    const dateStr = message.createdAt.toDate().toISOString()
+    const date = new Date(dateStr)
+    const result = date.getHours()+":"+(date.getMinutes()<10?'0':'') + date.getMinutes()
+    console.log(result);
+    setTime(result)
   }, [message])
   return (
     <div ref={dummy} className={`${styles.chatContainer} ${message.from === senderId ? styles.sender : styles.receiver}`}>
       <div className={`${message.from === senderId ? styles.sent : styles.received}`} color="#000">
         <Regular16 color="#000">{message.text}</Regular16>
         <div className={styles.time}>
-        <Regular12>{message.createdAt.toDate().toLocaleTimeString().slice(0, 4)}</Regular12>
+        <Regular12 color="#011627">{time}</Regular12>
         <FontAwesomeIcon icon={faCheck} />
       </div>
       </div>

@@ -6,17 +6,31 @@ import User from "../../components/User/User";
 import styles from "./chatApp.module.scss";
 import { LayoutWrapper } from "../../components/Layout/Layout";
 import { useMessages } from "../../context/MessageContext";
-import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, Timestamp, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  Timestamp,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../../firebase/firebase";
 import { useAuth } from "../../context/AuthContext";
+import ListModal from "../../components/ListModal/ListModal";
+import { useNavigate } from "react-router-dom";
 export default function ChatApp() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [userData, setUserData] = useState("");
-  const {currentUser} = useAuth()
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
 
   //id of sender
   const senderId = auth.currentUser.uid;
@@ -39,9 +53,6 @@ export default function ChatApp() {
     });
     return () => unsubscribe();
   }, [senderId, currentUser]);
-
-
-  
 
   // select a user and get the messages between the sender and receiver
   function selectUser(user) {
@@ -80,25 +91,48 @@ export default function ChatApp() {
     setText("");
   }
 
-  
+  // logout of account
+  async function handleLogout(e) {
+    e.preventDefault();
+    try {
+      // setError("");
+      await logout();
+      navigate("/login");
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        isOnline: false,
+      });
+    } catch (error) {
+      console.log(error);
+      // setError("Failed to log out");
+    }
+  }
+  // // open and close modal
+  // function handleModal() {
+  //   setIsOpen(!isOpen);
+  // }
 
   return (
     <LayoutWrapper>
       <div className={styles.chatBody}>
         <div className={styles.leftBar}>
-          <ChatListTop />
+          <ChatListTop logout={handleLogout}/>
           {users.map((user, i) => (
             <User key={i} user={user} selectUser={selectUser} />
           ))}
+            
         </div>
         <div className={styles.rightBar}>
           {chat ? (
             <>
               <TopBar chat={chat} user={users} />
               <div className={styles.chatArea}>
-                <ChatScreen messages={messages} senderId={senderId}/>
+                <ChatScreen messages={messages} senderId={senderId} />
               </div>{" "}
-              <InputBar sendMessage={sendMessage} text={text} setText={setText} />
+              <InputBar
+                sendMessage={sendMessage}
+                text={text}
+                setText={setText}
+              />
             </>
           ) : (
             <p>Select a user to start a conversation</p>
