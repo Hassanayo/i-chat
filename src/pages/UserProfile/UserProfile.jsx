@@ -17,11 +17,13 @@ import {
 } from "firebase/storage";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfile() {
   const [img, setImg] = useState("");
   const [user, setUser] = useState("");
   const { currentUser } = useAuth();
+  const navigate = useNavigate()
 
   useEffect(() => {
     getDoc(doc(db, "users", currentUser.uid)).then((docSnap) => {
@@ -75,7 +77,7 @@ export default function UserProfile() {
     <LayoutWrapper>
       <section className={styles.profileContainer}>
         <nav className={styles.profileNav}>
-          <div>
+          <div style={{cursor: "pointer"}} onClick={() => navigate("/messenger")} >
             <FontAwesomeIcon icon={faArrowLeftLong} />
           </div>
 

@@ -9,7 +9,7 @@ import {
   Semibold16,
 } from "../../styles/Typography/typography";
 import styles from "./user.module.scss";
-export default function User({user, selectUser}) {
+export default function User({user, selectUser, lastMsg}) {
   return (
     <div onClick={() => selectUser(user)} className={styles.userContainer}>
       <div className={styles.left}>
@@ -21,7 +21,7 @@ export default function User({user, selectUser}) {
           <Semibold16>{user.name}</Semibold16>
             <div className={`${styles.status} ${user.isOnline ? styles.online : styles.offline}`}></div>
           </FlexBox>
-          <Regular14>Ok, see you later</Regular14>
+          <Regular14>{user.lastMessage}</Regular14>
         </div>
       </div>
       <div className={styles.addDetails}>

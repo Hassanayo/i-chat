@@ -24,6 +24,7 @@ export default function ChatApp() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
+  const [lastMessage, setLastMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
@@ -66,8 +67,14 @@ export default function ChatApp() {
         msgs.push(doc.data());
       });
       setMessages(msgs);
+      
     });
+    
   }
+  // get last message from chat
+  // useEffect(() => {
+  //   console.log(users.lastMessage);
+  // }, [users])
   // send message to receiver
   async function sendMessage(e) {
     console.log("sent");
@@ -83,8 +90,14 @@ export default function ChatApp() {
       from: senderId,
       to: receiverId,
       createdAt: Timestamp.fromDate(new Date()),
-    });
+    })
+    await updateDoc(doc(db, "users", currentUser.uid), {
+      lastMessage: text
+    })
+    
+    
     setText("");
+    
   }
 
   // logout of account
@@ -113,7 +126,7 @@ export default function ChatApp() {
         <div className={styles.leftBar}>
           <ChatListTop logout={handleLogout}/>
           {users.map((user, i) => (
-            <User key={i} user={user} selectUser={selectUser} />
+            <User lastMsg={lastMessage} key={i} user={user} selectUser={selectUser} />
           ))}
             
         </div>

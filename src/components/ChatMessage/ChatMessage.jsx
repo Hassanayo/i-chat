@@ -9,8 +9,6 @@ export default function ChatMessage({message, senderId}) {
   useEffect(() => {
     // always scroll down to last message
     dummy.current?.scrollIntoView({behavior: "smooth"})
-
-
     // get time message was sent
     const dateStr = message.createdAt.toDate().toISOString()
     const date = new Date(dateStr)
