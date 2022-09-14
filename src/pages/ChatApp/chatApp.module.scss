@@ -4,7 +4,7 @@
 }
 .rightBar {
   width: 100%;
-  background-color: var(--icebergBlue);
+  background-color: var(--lightGrey);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,4 +35,21 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+.desktopHolder{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.holderTitle{
+  font-size: 32px;
+  font-weight: 300px;
+  line-height: 37.5px;
+  text-align: center;
+}
+.holderText{
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
 }

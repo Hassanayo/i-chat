@@ -4,6 +4,7 @@ import InputBar from "../../components/InputBar/InputBar";
 import TopBar from "../../components/TopBar/TopBar";
 import User from "../../components/User/User";
 import styles from "./chatApp.module.scss";
+import Holder from "../../assets/image.png"
 import { LayoutWrapper } from "../../components/Layout/Layout";
 import {
   addDoc,
@@ -144,7 +145,13 @@ export default function ChatApp() {
               />
             </>
           ) : (
-            <p>Select a user to start a conversation</p>
+            <section className={styles.desktopHolder}>
+              <div>
+                <h3 className={styles.holderTitle}>Stay Connected 👋</h3>
+                <p className={styles.holderText}>Send and receive messages on your favorite chat app.</p>
+                <p className={styles.holderText}>Click on a user to start a conversation.</p>
+              </div>
+            </section>
           )}
         </div>
       </div>

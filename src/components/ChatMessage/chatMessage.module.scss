@@ -1,39 +1,41 @@
-
-.chatMessages{
-    max-width: 100%;
+.chatContainer {
 }
-.sender{
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 0;
+.chatMessages {
+  max-width: 100%;
 }
-.receiver{
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px 0;
+.sender {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
 }
-.sent{
-    display: inline;
-    background-color: var(--lightGreen);
-    border-radius: 12px;
-    padding: 4px 12px;
-    min-width: 200px;
-    max-width: 500px;
-    margin-top: 10px;
-    padding: 5px;
+.receiver {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 0;
 }
-.received{
-    display: inline;
-    background-color: #FFF;
-    border-radius: 12px;
-    padding: 4px 12px;
-    min-width: 200px;
-    padding: 5px;
+.sent {
+  display: inline;
+  background-color: var(--darkGreen);
+  border-radius: 12px;
+  padding: 4px 12px;
+  min-width: 200px;
+  max-width: 500px;
+  margin-top: 10px;
+  padding: 15px 5px 5px 10px;
 }
-.time{
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 10px;
-    gap: 5px;
-    
+.received {
+  display: inline;
+  background-color: var(--darkGrey);
+  border-radius: 12px;
+  padding: 4px 12px;
+  min-width: 200px;
+  padding: 15px 5px 5px 10px;
+}
+.time {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 10px;
+  gap: 5px;
+  font-size: 10px;
 }

@@ -15,6 +15,9 @@
   gap: 16px;
   align-items: center;
 }
+.userStatus{
+  position: relative;
+}
 .profilePic {
   width: 48px;
   height: 48px;
@@ -45,6 +48,10 @@
   width: 8px;
   height: 8px;
   border-radius: 100px;
+  position: absolute;
+  bottom: 7px;
+  right: -1px;
+  border: 1.5px solid #F1F4F7;
 }
 .online {
   background-color: var(--lightGreen);
