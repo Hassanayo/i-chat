@@ -67,7 +67,6 @@ export default function Signup() {
           <p><a href="/">Sign In</a></p>
         </section>
       ) : ( */}
-      <div>{currentUser && currentUser.email}</div>
       <section className="form-container">
         <h1 className="header">Sign up</h1>
         <form className="form" onSubmit={handleSubmit}>

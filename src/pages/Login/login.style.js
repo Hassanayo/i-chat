@@ -47,7 +47,7 @@ export const LoginContainer = styled.div`
     width: 100%;
   }
   button {
-    background-color: #3badcd;
+    background-color: var(--darkGreen);
     color: #fff;
     cursor: pointer;
     border-radius: 8px;

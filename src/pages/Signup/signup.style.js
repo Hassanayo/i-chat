@@ -47,7 +47,7 @@ export const SignupContainer = styled.div`
     width: 100%;
   }
   button{
-    background-color: #3BADCD;
+    background-color: var(--darkGreen);
     color: #fff;
     cursor: pointer;
     border-radius: 8px;
