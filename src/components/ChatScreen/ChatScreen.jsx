@@ -1,7 +1,6 @@
 import {Regular16 } from "../../styles/Typography/typography";
 import styles from "./chatScreen.module.scss";
 import ChatMessage from "../ChatMessage/ChatMessage";
-import { useMessages } from "../../context/MessageContext";
 export default function ChatScreen({messages, senderId}) {
   return (
     <div className={styles.chatBody}>

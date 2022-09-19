@@ -1,10 +1,7 @@
 import React from "react";
-import Avatar from "../../assets/Avatar.png";
-import { useMessages } from "../../context/MessageContext";
 import Img from "../../assets/blankimage.png";
 import {
   FlexBox,
-  Regular12,
   Regular14,
   Semibold16,
 } from "../../styles/Typography/typography";

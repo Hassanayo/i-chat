@@ -20,7 +20,7 @@ export default function Signup() {
   });
   const { name, email, password, confirm_pwd, error, loading } = data;
   const userRef = useRef();
-  const { signup, currentUser } = useAuth();
+  const { signup} = useAuth();
   const navigate = useNavigate()
 
   // focus on the first input tab

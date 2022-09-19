@@ -4,7 +4,6 @@ import InputBar from "../../components/InputBar/InputBar";
 import TopBar from "../../components/TopBar/TopBar";
 import User from "../../components/User/User";
 import styles from "./chatApp.module.scss";
-import Holder from "../../assets/image.png"
 import { LayoutWrapper } from "../../components/Layout/Layout";
 import {
   addDoc,
@@ -25,7 +24,7 @@ export default function ChatApp() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
-  const [lastMessage, setLastMessage] = useState("");
+  const [lastMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
