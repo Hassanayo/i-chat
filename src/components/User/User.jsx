@@ -1,40 +1,62 @@
-import React from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import Img from "../../assets/blankimage.png";
+import { db } from "../../firebase/firebase";
 import {
   FlexBox,
+  Regular12,
   Regular14,
   Semibold16,
 } from "../../styles/Typography/typography";
 import styles from "./user.module.scss";
-export default function User({ user, selectUser, lastMsg }) {
+export default function User({ user, selectUser, senderId, chat }) {
+  const receiverId = user?.uid;
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    const id =
+      senderId > receiverId
+        ? `${senderId + receiverId}`
+        : `${receiverId + senderId}`;
+    let unsub = onSnapshot(doc(db, "lastMessage", id), (doc) => {
+      setData(doc.data());
+    });
+    return () => unsub();
+  }, [receiverId, senderId]);
+  
   return (
-    <div onClick={() => selectUser(user)} className={styles.userContainer}>
+    <div
+      onClick={() => selectUser(user)}
+      className={`${styles.userContainer} ${
+        chat.name === user.name && styles.selectedUser
+      }`}
+    >
       <div className={styles.left}>
         <div className={styles.userStatus}>
-
-        <div className={styles.profilePic}>
-          <img src={user.avatar || Img} alt="" />
-          <div
+          <div className={styles.profilePic}>
+            <img src={user.avatar || Img} alt="" />
+            <div
               className={`${styles.status} ${
                 user.isOnline ? styles.online : styles.offline
               }`}
             ></div>
-        </div>
+          </div>
         </div>
         <div className={styles.details}>
           <FlexBox alignItems="center" gap="10px">
             <Semibold16>{user.name}</Semibold16>
-            
           </FlexBox>
-          <Regular14>{user.lastMessage}</Regular14>
+          <Regular14>{data?.text}</Regular14>
         </div>
       </div>
-      {/* <div className={styles.addDetails}>
+      <div className={styles.addDetails}>
         <Regular12 className={styles.time}>12:48</Regular12>
-        <div className={styles.notifs}>
-          <Regular12 color="#FFF">1</Regular12>
-        </div>
-      </div> */}
+        {data?.from !== senderId && data?.unread && (
+          <div className={styles.notifs}>
+            <Regular12 color="#FFF">1</Regular12>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

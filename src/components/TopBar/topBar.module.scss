@@ -15,6 +15,7 @@
 .iconBox{
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 .iconBox > *{
     padding: 8px;

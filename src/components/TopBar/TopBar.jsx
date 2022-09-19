@@ -2,8 +2,8 @@ import styles from "./topBar.module.scss";
 import Avatar from "../../assets/blankimage.png";
 import { Regular14, Semibold16 } from "../../styles/Typography/typography";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-export default function TopBar({ chat }) {
+import { faClose} from "@fortawesome/free-solid-svg-icons";
+export default function TopBar({ chat, setChat }) {
   return (
     <div className={styles.topBarBody}>
       <div className={styles.left}>
@@ -21,8 +21,8 @@ export default function TopBar({ chat }) {
           </div>
         </div>
       </div>
-      <div className={styles.iconBox}>
-        <FontAwesomeIcon icon={faEllipsisV} />
+      <div className={styles.iconBox} onClick={() => setChat("")}>
+        <FontAwesomeIcon icon={faClose}/>
       </div>
     </div>
   );

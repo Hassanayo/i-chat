@@ -53,3 +53,21 @@
   font-size: 14px;
   line-height: 20px;
 }
+
+
+@media screen and (max-width: 680px) {
+  .rightBar{
+    display: none;
+  }
+  
+  .active{
+    display: block;
+  }
+  
+  .chatBody{
+
+  }
+  .inactive{
+    display: none;
+  }
+}
