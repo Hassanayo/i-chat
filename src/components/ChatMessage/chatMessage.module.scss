@@ -39,3 +39,8 @@
   gap: 5px;
   font-size: 10px;
 }
+@media screen and (max-width: 680px) {
+  .sender {
+    padding: 0px;
+  }
+}

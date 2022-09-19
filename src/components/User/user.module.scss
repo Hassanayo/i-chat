@@ -1,24 +1,24 @@
 .userContainer {
   display: flex;
   background-color: #fff;
-  max-width: 364px;
+  max-width: 100%;
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
   cursor: pointer;
 }
-.userContainer:hover{
-  background-color: #F5F6F6;
+.userContainer:hover {
+  background-color: #f5f6f6;
 }
-.selectedUser{
-  background-color: #F5F6F6;
+.selectedUser {
+  background-color: #f5f6f6;
 }
 .left {
   display: flex;
   gap: 16px;
   align-items: center;
 }
-.userStatus{
+.userStatus {
   position: relative;
 }
 .profilePic {
@@ -54,7 +54,7 @@
   position: absolute;
   bottom: 7px;
   right: -1px;
-  border: 1.5px solid #F1F4F7;
+  border: 1.5px solid #f1f4f7;
 }
 .online {
   background-color: var(--lightGreen);

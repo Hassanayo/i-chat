@@ -1,4 +1,4 @@
-.chatBody {
+.chatScreenBody {
   display: flex;
   flex-direction: column;
   background-color: transparent;
@@ -15,6 +15,9 @@
   margin: 0 auto;
   margin-bottom: 24px;
 }
-
-
-
+@media screen and (max-width: 680px) {
+  .chatScreenBody {
+    padding: 0;
+    margin-bottom: 50px;
+  }
+}

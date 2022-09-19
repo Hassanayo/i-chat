@@ -19,3 +19,8 @@ body {
   font-family: "Inter";
   overflow: hidden;
 }
+@media screen and (max-width: 680px) {
+  body{
+    overflow: auto;
+  }
+}

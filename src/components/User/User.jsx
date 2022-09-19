@@ -1,4 +1,4 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import Img from "../../assets/blankimage.png";
 import { db } from "../../firebase/firebase";
@@ -12,7 +12,7 @@ import styles from "./user.module.scss";
 export default function User({ user, selectUser, senderId, chat }) {
   const receiverId = user?.uid;
   const [data, setData] = useState("");
-
+  const [time, setTime] = useState("");
   useEffect(() => {
     const id =
       senderId > receiverId
@@ -21,9 +21,29 @@ export default function User({ user, selectUser, senderId, chat }) {
     let unsub = onSnapshot(doc(db, "lastMessage", id), (doc) => {
       setData(doc.data());
     });
+
     return () => unsub();
   }, [receiverId, senderId]);
-  
+
+  useEffect(() => {
+    async function fetchDate() {
+      // get time message was sent
+      if (data) {
+        const dateStr = data.createdAt?.toDate().toISOString();
+        const date = new Date(dateStr);
+        console.log(data?.createdAt.toDate().toISOString());
+        const result =
+          date.getHours() +
+          ":" +
+          (date.getMinutes() < 10 ? "0" : "") +
+          date.getMinutes();
+        setTime(result);
+        console.log(result);
+      }
+    }
+    fetchDate();
+  }, [data]);
+
   return (
     <div
       onClick={() => selectUser(user)}
@@ -50,10 +70,10 @@ export default function User({ user, selectUser, senderId, chat }) {
         </div>
       </div>
       <div className={styles.addDetails}>
-        <Regular12 className={styles.time}>12:48</Regular12>
+        <Regular12 className={styles.time}>{time}</Regular12>
         {data?.from !== senderId && data?.unread && (
           <div className={styles.notifs}>
-            <Regular12 color="#FFF">1</Regular12>
+            <Regular12 color="#FFF"></Regular12>
           </div>
         )}
       </div>
