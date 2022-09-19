@@ -1,0 +1,155 @@
+.bodyLayout {
+  padding: 0 128px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 27.5px 0;
+}
+.navList ul {
+  display: flex;
+  gap: 15px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1b1c20;
+  align-items: center;
+  justify-content: center;
+}
+.navList li {
+  cursor: pointer;
+}
+.navTitle {
+  font-size: 21px;
+  color: var(--darkGreen);
+}
+.heroSection {
+  margin-top: 10%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.heroTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 60px;
+  color: #1b1c20;
+}
+.heroDetails {
+  max-width: 550px;
+}
+.heroSpan {
+  color: #61c554;
+}
+.heroSubtext {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 32px;
+  margin: 29px 0;
+}
+.heroBtn {
+  min-height: 56px;
+  padding: 16px 23px;
+  border: none;
+  background-color: #61c554;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.heroBtn:hover {
+  transform: scale(1.1);
+}
+.heroBtn:focus {
+  outline: none;
+}
+.heroImg {
+  max-width: 808px;
+  min-height: 500px;
+  position: relative;
+  bottom: 70px;
+}
+.heroImg img {
+  width: 100%;
+}
+.navButtonBox {
+  max-width: 350px;
+}
+.navBtn {
+  width: 157px;
+  height: 50px;
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid var(--darkGreen);
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.navBtn:nth-child(1):hover {
+  background-color: var(--darkGreen);
+  color: #fff;
+}
+.navBtn:nth-child(2) {
+  background-color: var(--darkGreen);
+  margin-left: 10px;
+  color: #fff;
+}
+.menuBar {
+  display: none;
+  font-size: 25px;
+  height: 100%;
+  cursor: pointer;
+}
+@media screen and (max-width: 1080px) {
+  .heroImg {
+    bottom: 0;
+    top: 50px;
+  }
+}
+@media screen and (max-width: 980px) {
+  .bodyLayout {
+    padding: 0 20px;
+  }
+  .navList {
+    display: none;
+  }
+  .navButtonBox {
+    display: none;
+  }
+  .menuBar {
+    display: block;
+  }
+  .heroTitle {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 49px;
+    color: #1b1c20;
+    text-align: center;
+  }
+  .heroSubtext{
+    text-align: center;
+  }
+  .heroDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 550px) {
+  .heroImg{
+    display: none;
+  }
+}

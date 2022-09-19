@@ -1,6 +1,6 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./mainAppp.module.scss";
+import styles from "./mainApp.module.scss";
 import Image from "../../assets/Illustration.png"
 import { useNavigate } from "react-router-dom";
 export default function MainApp() {
@@ -17,6 +17,13 @@ export default function MainApp() {
             <li>Pages</li>
             <li>Contact</li>
           </ul>
+        </div>
+        <div className={styles.navButtonBox}>
+          <button className={styles.navBtn}>Login</button>
+          <button className={styles.navBtn}>Get Started Free</button>
+        </div>
+        <div className={styles.menuBar}>
+          <FontAwesomeIcon icon={faBars}/>
         </div>
       </nav>
       <section className={styles.heroSection}>
