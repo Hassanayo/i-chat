@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 export default function ChatApp() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
-  const [text, setText] = useState("");
+  const [text, setText] = useState();
   const [lastMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { currentUser, logout } = useAuth();

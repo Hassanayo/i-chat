@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route path="/messenger" element={<ChatApp />} />
-            <Route path="/profile" element={<UserProfile/>}/>
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
           <Route path="/" element={<MainApp />} />
           <Route path="/signup" element={<Signup />} />

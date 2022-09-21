@@ -2,15 +2,15 @@
 @import "./styles/reset.css";
 @import "./styles/variables.scss";
 
-html{
+html {
   --icebergBlue: #8babd8;
   --lightGreen: #78e378;
-  --darkGreen: #61C554;
+  --darkGreen: #61c554;
   --red: #f71735;
   --richBlack: #011627;
   --navyGrey: #707991;
   --lightGrey: #f5f5f5;
-  --darkGrey: #E8ECEF;
+  --darkGrey: #e8ecef;
   --blue: #1a9cff;
 }
 
@@ -20,7 +20,7 @@ body {
   overflow: hidden;
 }
 @media screen and (max-width: 680px) {
-  body{
+  body {
     overflow: auto;
   }
 }

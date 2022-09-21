@@ -23,7 +23,7 @@ export default function UserProfile() {
   const [img, setImg] = useState("");
   const [user, setUser] = useState("");
   const { currentUser } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDoc(doc(db, "users", currentUser.uid)).then((docSnap) => {
@@ -77,7 +77,10 @@ export default function UserProfile() {
     <LayoutWrapper>
       <section className={styles.profileContainer}>
         <nav className={styles.profileNav}>
-          <div style={{cursor: "pointer"}} onClick={() => navigate("/messenger")} >
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/messenger")}
+          >
             <FontAwesomeIcon icon={faArrowLeftLong} />
           </div>
 
@@ -94,7 +97,7 @@ export default function UserProfile() {
             />
             <div className={styles.overlay}>
               <div>
-                <label htmlFor="photo">
+                <label htmlFor="photo" className={styles.avatarIcons}>
                   <FontAwesomeIcon icon={faCamera} />
                 </label>
                 <input
@@ -104,15 +107,15 @@ export default function UserProfile() {
                   onChange={(e) => setImg(e.target.files[0])}
                   style={{ display: "none" }}
                 />
-                <p>CHANGE PROFILE PHOTO</p>
+              </div>
+              <div className={styles.avatarIcons}>
+                {user.avatar ? (
+                  <FontAwesomeIcon onClick={deleteImage} icon={faTrash} />
+                ) : null}
               </div>
             </div>
           </div>
-          <div>
-            {user.avatar ? (
-              <FontAwesomeIcon onClick={deleteImage} icon={faTrash} />
-            ) : null}
-          </div>
+
           <div className={styles.userDetails}>
             <p className={styles.nameLabel}>Your name</p>
             <p className={styles.username}>{user.name}</p>

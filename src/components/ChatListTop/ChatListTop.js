@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import styles from "./chatListTop.module.scss";
 import ListModal from "../ListModal/ListModal";
 export default function ChatListTop({ openModal, logout }) {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   // open and close modal
   function handleModal() {
     setIsOpen(!isOpen);
@@ -16,12 +16,10 @@ export default function ChatListTop({ openModal, logout }) {
       <div className={styles.iconBox} onClick={handleModal}>
         <FontAwesomeIcon icon={faBars} />
       </div>
-        <ListModal setIsOpen={setIsOpen} isOpen={isOpen} logout={logout} />
-      <div className={styles.inputField}>
-        <div>
-          <FontAwesomeIcon icon={faSearch} />
-        </div>
-        <input className={styles.inputBox} type="text" placeholder="Search" />
+      <ListModal setIsOpen={setIsOpen} isOpen={isOpen} logout={logout} />
+
+      <div className={styles.appName}>
+        <h2>iChat</h2>
       </div>
     </div>
   );

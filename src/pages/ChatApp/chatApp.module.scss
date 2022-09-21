@@ -69,4 +69,23 @@
   .inactive {
     display: none;
   }
+  ::-webkit-scrollbar {
+    width: 3px;
+    position: absolute;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }

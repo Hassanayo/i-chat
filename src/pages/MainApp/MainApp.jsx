@@ -19,8 +19,8 @@ export default function MainApp() {
           </ul>
         </div>
         <div className={styles.navButtonBox}>
-          <button className={styles.navBtn}>Login</button>
-          <button className={styles.navBtn}>Get Started Free</button>
+          <button onClick={() => navigate("/login")} className={styles.navBtn}>Login</button>
+          <button onClick={() => navigate("/signup")} className={styles.navBtn}>Get Started Free</button>
         </div>
         <div className={styles.menuBar}>
           <FontAwesomeIcon icon={faBars}/>
