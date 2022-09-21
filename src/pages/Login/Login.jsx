@@ -98,7 +98,7 @@ export default function Login() {
           </button>
         </form>
         <p>
-          Dont have an account? <Link to="/login">Sign up</Link>
+          Dont have an account? <Link to="/signup">Sign up</Link>
         </p>
       </section>
       {/* )} */}
