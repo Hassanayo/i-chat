@@ -6,6 +6,7 @@
   padding: 24px;
   margin: 0 auto;
   margin-bottom: 10px;
+  overflow-x: hidden;
 }
 .date {
   background: rgba(61, 112, 184, 0.6);
@@ -15,11 +16,12 @@
   margin: 0 auto;
   margin-bottom: 24px;
 }
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 800px) {
   .chatScreenBody {
     margin-top: 80px;
     padding: 0;
     margin-bottom: 54px;
-    overflow-y: scroll;
+    // overflow-y: scroll;
+    overflow-x: hidden;
   }
 }

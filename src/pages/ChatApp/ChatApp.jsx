@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 export default function ChatApp() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
   const [lastMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { currentUser, logout } = useAuth();
@@ -93,23 +93,25 @@ export default function ChatApp() {
         ? `${senderId + receiverId}`
         : `${receiverId + senderId}`;
     const chatRef = collection(db, "messages", id, "chat");
-    await addDoc(chatRef, {
-      text,
-      from: senderId,
-      to: receiverId,
-      createdAt: Timestamp.fromDate(new Date()),
-    });
-    // await updateDoc(doc(db, "users", currentUser.uid), {
-    //   lastMessage: text
-    // })
-    // check if the doc exists from the id. if not,  create a new one else replace existing doc
-    await setDoc(doc(db, "lastMessage", id), {
-      text,
-      from: senderId,
-      to: receiverId,
-      createdAt: Timestamp.fromDate(new Date()),
-      unread: true,
-    });
+    if (text) {
+      await addDoc(chatRef, {
+        text,
+        from: senderId,
+        to: receiverId,
+        createdAt: Timestamp.fromDate(new Date()),
+      });
+      // await updateDoc(doc(db, "users", currentUser.uid), {
+      //   lastMessage: text
+      // })
+      // check if the doc exists from the id. if not,  create a new one else replace existing doc
+      await setDoc(doc(db, "lastMessage", id), {
+        text,
+        from: senderId,
+        to: receiverId,
+        createdAt: Timestamp.fromDate(new Date()),
+        unread: true,
+      });
+    }
 
     setText("");
   }

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 export default function ChatMessage({ message, senderId }) {
   const [time, setTime] = useState("");
+  const linkedText = useRef()
   const dummy = useRef();
   useEffect(() => {
     // always scroll down to last message
@@ -32,7 +33,7 @@ export default function ChatMessage({ message, senderId }) {
         }`}
         color="#000"
       >
-        <Regular16 color={`${message.from === senderId ? "#fff" : "#000"}`}>
+        <Regular16 ref={linkedText} color={`${message.from === senderId ? "#fff" : "#000"}`}>
           {message.text}
         </Regular16>
         <div className={styles.time}>

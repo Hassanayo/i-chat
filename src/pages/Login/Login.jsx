@@ -101,7 +101,6 @@ export default function Login() {
           Dont have an account? <Link to="/signup">Sign up</Link>
         </p>
       </section>
-      {/* )} */}
     </LoginContainer>
   );
 }

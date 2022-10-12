@@ -66,7 +66,7 @@ export default function User({ user, selectUser, senderId, chat }) {
           <FlexBox alignItems="center" gap="10px">
             <Semibold16>{user.name}</Semibold16>
           </FlexBox>
-          <Regular14>{data?.text}</Regular14>
+          <Regular14>{data?.text?.length > 30 ? `${data?.text.slice(0, 21)}...` : data?.text}</Regular14>
         </div>
       </div>
       <div className={styles.addDetails}>
